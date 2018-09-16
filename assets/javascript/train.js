@@ -15,7 +15,7 @@ $( document ).ready(function() {
      var database = firebase.database();
     
     // on click that submits user's input
-    $("#trainInfoBtn").on("click", function(event) {
+    $("#addNewTrain").on("click", function(event) {
         event.preventDefault(); //no button reset
     
         //set user input values to variables
@@ -58,7 +58,7 @@ $( document ).ready(function() {
         $("#firstTime").val("");
         $("#freq").val("");
     
-        //supposed to prevent from moving to a new page... idk how
+        //prevents new page from loading 
         return false;
     
     });
