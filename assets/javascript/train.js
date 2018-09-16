@@ -11,10 +11,10 @@ $( document ).ready(function() {
       firebase.initializeApp(config);
     
     
-    // a var to represent the database
+    // make a var for database
      var database = firebase.database();
     
-    // button to submit the user given info
+    // on click that submits user's input
     $("#trainInfoBtn").on("click", function(event) {
         event.preventDefault(); //no button reset
     
@@ -22,7 +22,7 @@ $( document ).ready(function() {
         var trainName = $("#name").val().trim();
         var destination = $("#dest").val().trim();
     
-        //converts user input to usable info
+        //converts user input to time
         var firstTime = moment($("#firstTime").val().trim(), "hh:mm").subtract(1, "years").format("X");
     
         var frequency = $("#freq").val().trim();
@@ -39,7 +39,7 @@ $( document ).ready(function() {
     
     
     
-        //gathers together all our new train info
+        //put all new info together in one variable
         var newTrain = {
     
             train: trainName,
@@ -49,11 +49,10 @@ $( document ).ready(function() {
         };
     
     
-        //uploads newTrain to firebase
+        //upload newTrain to firebase
         database.ref().push(newTrain);
-        //*push* adds to info already in firebase. *set* overwrites preexisting info
         
-        //clears elements before adding new text
+        //clears user inputs before adding new text
         $("#name").val("");
         $("#dest").val("");
         $("#firstTime").val("");
@@ -62,7 +61,7 @@ $( document ).ready(function() {
         //supposed to prevent from moving to a new page... idk how
         return false;
     
-    }); //end of onclick
+    });
     
     //figure out what this does
     database.ref().on("child_added", function(childSnapshot, prevChildKey) {
@@ -93,7 +92,7 @@ $( document ).ready(function() {
             //next arrival time
             var nextArrival = moment().add(minUntil, "minutes").format('hh:mm');
     
-            //adding info to DOM table 
+            //adding in the DOM Stuff
             $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minUntil + "</td></tr>");
     
     });
