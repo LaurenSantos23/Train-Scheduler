@@ -16,16 +16,16 @@ $( document ).ready(function() {
     
     // on click that submits user's input
     $("#addNewTrain").on("click", function(event) {
-        event.preventDefault(); //no button reset
+        event.preventDefault(); //so button does not reset 
     
-        //set user input values to variables
+        //set user input to variables
         var trainName = $("#name").val().trim();
         var destination = $("#dest").val().trim();
     
         //converts user input to time
         var firstTime = moment($("#firstTime").val().trim(), "hh:mm").subtract(1, "years").format("X");
     
-        var frequency = $("#freq").val().trim();
+        var tFrequency = $("#tFreq").val().trim();
         
         //current time
         var currentTime = moment();
@@ -34,8 +34,9 @@ $( document ).ready(function() {
          console.log(trainName);
          console.log(destination);
          console.log(firstTime);
-         console.log(frequency);
+         console.log(tFrequency);
          console.log(currentTime);
+         //nothing comes up from console log except some sort of warning about Firebase
     
     
     
@@ -45,7 +46,7 @@ $( document ).ready(function() {
             train: trainName,
             trainGoing: destination,
             trainComing: firstTime,
-            everyXMin: frequency
+            everyXMin: tFrequency
         };
     
     
@@ -56,46 +57,9 @@ $( document ).ready(function() {
         $("#name").val("");
         $("#dest").val("");
         $("#firstTime").val("");
-        $("#freq").val("");
-    
-        //prevents new page from loading 
-        return false;
-    
+        $("#tFreq").val("");
     });
     
-    //figure out what this does
-    database.ref().on("child_added", function(childSnapshot, prevChildKey) {
-    
-            console.log(childSnapshot.val());
-            //store in variables
-            var trainName = childSnapshot.val().train;
-            var destination =childSnapshot.val().trainGoing;
-            var firstTime = childSnapshot.val().trainComing;
-            var frequency = childSnapshot.val().everyXMin;
-    
-    	    console.log(trainName);
-    		console.log(destination);
-    	    console.log(firstTime);
-        	console.log(frequency);
-    
-            //makes first train time neater
-            var trainTime = moment.unix(firstTime).format("hh:mm");
-            //calculate difference between times
-            var difference =  moment().diff(moment(trainTime),"minutes");
-    
-            //time apart(remainder)
-            var trainRemain = difference % frequency;
-    
-            //minutes until arrival
-            var minUntil = frequency - trainRemain;
-    
-            //next arrival time
-            var nextArrival = moment().add(minUntil, "minutes").format('hh:mm');
-    
-            //adding in the DOM Stuff
-            $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minUntil + "</td></tr>");
-    
-    });
     });
     
     
