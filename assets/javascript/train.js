@@ -5,7 +5,7 @@
         databaseURL: "https://train-scheduler-191e0.firebaseio.com",
         storageBucket: "train-scheduler-191e0.appspot.com", 
       };
-      firebase.initializeApp(config);
+    firebase.initializeApp(firebaseConfig);
     
     
     // make a var for database
@@ -88,6 +88,6 @@
       //add each trains' data into the table
       $("train-table > tbody").append("<tr><td>" + tName +"</td><td>" + tDestination + "</td><td>" +
           tFrequency + "</td><td>" + tArrival + "</td><td>" + tMinutes + "</td></tr>");
-    })    
+    });    
     
     
