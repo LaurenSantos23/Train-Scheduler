@@ -1,5 +1,5 @@
     // Initialize Firebase
-    var firebaseConfig = {
+    var config = {
       apiKey: "AIzaSyDbgpIztMXEOvgMHeN3ox2fU-teNCmYHTQ",
       authDomain: "train-scheduler-191e0.firebaseapp.com",
       databaseURL: "https://train-scheduler-191e0.firebaseio.com",
@@ -8,7 +8,8 @@
       messagingSenderId: "1093446593566",
       appId: "1:1093446593566:web:c7d3982b886e97b1"
     };
-    firebase.initializeApp(firebaseConfig);
+    
+    firebase.initializeApp(config);
     
     
     // make a var for database
